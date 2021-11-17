@@ -1,4 +1,5 @@
 import numpy as np
+from PIL import Image
 from streamlit_drawable_canvas import st_canvas
 import streamlit as st
 import cv2
@@ -9,14 +10,18 @@ def inpaint(image):
     drawing_mode = st.sidebar.selectbox(
             "Drawing tool:", ("freedraw", "line", "rect", "circle", "transform"))
     realtime_update = st.sidebar.checkbox("Update in realtime", True)
+    try:
+        image = Image.fromarray(image.astype('uint8'), 'RGB')
+    except:
+        pass
 
     canvas_result = st_canvas(
             stroke_color='#fff',
             stroke_width=stroke_width,
             background_color='#000',
-            background_image=image.copy(),
-            height = image.size[1],
-            width = image.size[0],
+            background_image=image,
+            height=image.size[1],
+            width=image.size[0],
             update_streamlit=realtime_update,
             drawing_mode = drawing_mode,
             key = "canvas",
@@ -26,6 +31,8 @@ def inpaint(image):
         image = np.array(image, dtype = 'uint8')
         mask = np.array(canvas_result.image_data, dtype = 'uint8')
         mask = cv2.cvtColor(mask[:, :, :3], cv2.COLOR_RGB2GRAY)
+        print(mask.shape)
+        print(image.shape)
         st.image(mask)
         res1 = cv2.inpaint(src = image, inpaintMask = mask, inpaintRadius = inpaintRadius, flags = cv2.INPAINT_TELEA)
         res2 = cv2.inpaint(src = image, inpaintMask = mask, inpaintRadius = inpaintRadius, flags = cv2.INPAINT_NS)
