@@ -3,7 +3,6 @@ import numpy as np
 from PIL import Image
 #import Restoration methods
 from Colorization import colorize
-from ImproveLighting import  night_images
 from InPainting import inpaint
 from Denoising import denoise
 
@@ -16,7 +15,6 @@ def main():
     uploadPage = "Upload a new image"
     colorizationPage = "Image Colorization"
     inpaintingPage = "Image Inpainting"
-    enhancementPage = "Image Enhacement"
     denoisingPage = "Image Denoising"
     comparisonPage = "Compare with original image"
 
@@ -26,7 +24,6 @@ def main():
              uploadPage,
              colorizationPage,
              inpaintingPage,
-             enhancementPage,
              denoisingPage,
              comparisonPage
              ])
@@ -57,18 +54,6 @@ def main():
       st.session_state['current'] = result
       colorized.header("Colorized")
       colorized.image(st.session_state['current'], use_column_width = True)
-
-    # image enhancement
-    if appMode == enhancementPage:
-      original, enhanced = st.columns(2)
-      # get the enhanced image
-      res = night_images.enhance(image)
-      # display the images
-      original.header("Original Image")
-      original.image(image, use_column_width = True)
-
-      enhanced.header("Denoised Image")
-      enhanced.image(res, use_column_width = True)
 
     # image inpainting
     if appMode == inpaintingPage:
