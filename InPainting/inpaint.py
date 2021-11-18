@@ -34,8 +34,7 @@ def inpaint(image):
         print(mask.shape)
         print(image.shape)
         st.image(mask)
-        res1 = cv2.inpaint(src = image, inpaintMask = mask, inpaintRadius = inpaintRadius, flags = cv2.INPAINT_TELEA)
-        res2 = cv2.inpaint(src = image, inpaintMask = mask, inpaintRadius = inpaintRadius, flags = cv2.INPAINT_NS)
-        return res1, res2
+        res = cv2.inpaint(src = image, inpaintMask = mask, inpaintRadius = inpaintRadius, flags = cv2.INPAINT_TELEA)
+        return res
     else:
-        return None, None
+        return None
