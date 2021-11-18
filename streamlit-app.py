@@ -5,6 +5,8 @@ from PIL import Image
 from Colorization import colorize
 from InPainting import inpaint
 from Denoising import denoise
+from histogramEqulization import equalize_histogram
+from adaptiveHistogramEqualization import CLAHE
 
 
 def main():
@@ -16,6 +18,8 @@ def main():
     colorizationPage = "Image Colorization"
     inpaintingPage = "Image Inpainting"
     denoisingPage = "Image Denoising"
+    histogramEqPage = "Histogram Equalization"
+    adapHistogramEqPage = "Adaptive Histogram Equalization"
     comparisonPage = "Compare with original image"
 
     appMode = st.sidebar.selectbox(
@@ -25,6 +29,8 @@ def main():
              colorizationPage,
              inpaintingPage,
              denoisingPage,
+             histogramEqPage,
+             adapHistogramEqPage,
              comparisonPage
              ])
 
@@ -102,6 +108,29 @@ def main():
       result.header("Result Image")
       result.image(st.session_state["current"], use_column_width = True)
 
+    if appMode == histogramEqPage:
+        original, result = st.columns(2)
+        res = equalize_histogram.equalize_histogram(st.session_state["current"])
+
+        original.header("Original Image")
+        original.image(st.session_state["current"], use_column_width=True)
+
+        st.session_state['current'] = res
+
+        result.header("Result Image")
+        result.image(res, use_column_width=True)
+
+    if appMode == adapHistogramEqPage:
+        original, result = st.columns(2)
+        res = CLAHE.CLAHE(st.session_state["current"])
+
+        original.header("Original Image")
+        original.image(st.session_state["current"], use_column_width=True)
+
+        st.session_state['current'] = res
+
+        result.header("Result Image")
+        result.image(res, use_column_width=True)
 
 if __name__ == '__main__':
     main()
