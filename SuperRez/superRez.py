@@ -26,11 +26,3 @@ def superRez(img, scale):
         sr.setModel("espcn",2)
         result = sr.upsample(img)
         return result
-
-if __name__ == '__main__':
-	img = cv2.imread("Original-image.jpg")
-	plt.imshow(img[:,:,::-1])
-	plt.show()
-	superImage = superRez(img, 8)
-	plt.imshow(superImage[:,:,::-1])
-	plt.show()
