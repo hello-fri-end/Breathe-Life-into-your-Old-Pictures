@@ -118,6 +118,3 @@ def main():
 
         if st.button("Save Changes"):
             st.session_state["current"] = result
-
-if __name__ == '__main__':
-    main()
