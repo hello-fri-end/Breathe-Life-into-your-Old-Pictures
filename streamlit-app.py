@@ -51,12 +51,13 @@ def main():
 
     # image colorization
     if appMode == colorizationPage:
+      result = None
       result = colorize.colorize(st.session_state['current'])
 
     # image inpainting
     if appMode == inpaintingPage:
-      result = None
-      result = inpaint.inpaint(st.session_state['current'])
+      inpaint.inpaint(st.session_state['current'])
+
 
     # image denoising
     if appMode == denoisingPage:

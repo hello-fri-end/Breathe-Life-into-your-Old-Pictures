@@ -31,10 +31,15 @@ def inpaint(image):
         image = np.array(image, dtype = 'uint8')
         mask = np.array(canvas_result.image_data, dtype = 'uint8')
         mask = cv2.cvtColor(mask[:, :, :3], cv2.COLOR_RGB2GRAY)
-        print(mask.shape)
-        print(image.shape)
         st.image(mask)
         res = cv2.inpaint(src = image, inpaintMask = mask, inpaintRadius = inpaintRadius, flags = cv2.INPAINT_TELEA)
-        return res
-    else:
-        return None
+        previous, current = st.columns(2)
+
+        previous.header("Original Image")
+        previous.image(st.session_state["current"], use_column_width=True)
+        
+        current.header("Result Image")
+        current.image(res, use_column_width=True)
+
+        if st.button("Save Changes"):
+            st.session_state["current"] = result
