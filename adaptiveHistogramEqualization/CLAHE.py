@@ -12,6 +12,7 @@ def CLAHE(image):
     imgCopy = image.copy()
     ycrcb = cv2.cvtColor(imgCopy,cv2.COLOR_RGB2YCR_CB)
     channels = cv2.split(ycrcb)
+    channels = list(channels)
 
     clipLimit = st.sidebar.slider("Clip Limit", 1, 25, 2)
     tileGridRows = st.sidebar.slider("Tile Grid Rows", 1, 25, 8) 
