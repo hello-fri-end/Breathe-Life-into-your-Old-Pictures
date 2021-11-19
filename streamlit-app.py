@@ -45,6 +45,7 @@ def main():
           st.text("You haven't uploaded an image file")
       else:
           image = Image.open(imgFile)
+          image = image.convert(mode="RGB")
           st.session_state['current'] = image 
           st.session_state['original'] = image
           st.image(image)
@@ -59,7 +60,7 @@ def main():
 
     # image inpainting
     if appMode == inpaintingPage:
-      inpaint.inpaint(st.session_state['current'])
+      inpaint.inpaint(st.session_state["current"])
 
 
     # image denoising
@@ -115,7 +116,6 @@ def main():
         
         current.header("Result Image")
         current.image(result, use_column_width=True)
-
         if st.button("Save Changes"):
             st.session_state["current"] = result
 
