@@ -8,7 +8,7 @@ from Denoising import denoise
 from histogramEqulization import equalize_histogram
 from adaptiveHistogramEqualization import CLAHE
 from SuperRez import superRez
-
+from Download import getImageLink
 
 def main():
     st.set_page_config(layout="wide")
@@ -82,6 +82,8 @@ def main():
 
       current.header("Result Image")
       current.image(st.session_state["current"], use_column_width = True)
+      if st.button("Generate Download Link") :
+      	st.markdown(getImageLink.getImageLink(st.session_state["current"]), unsafe_allow_html=True)
 
     if appMode == histogramEqPage:
         result = equalize_histogram.equalize_histogram(st.session_state["current"])
@@ -116,8 +118,6 @@ def main():
 
         if st.button("Save Changes"):
             st.session_state["current"] = result
-
-
 
 if __name__ == '__main__':
     main()
