@@ -40,6 +40,7 @@ def inpaint(image):
         
         current.header("Result Image")
         current.image(res, use_column_width=True)
+        st.session_state["inpaint"] = res
 
-        if st.button("Save Changes"):
-            st.session_state["current"] = result
+    if st.button("Save Changes"):
+        st.session_state["current"] = st.session_state["inpaint"]
