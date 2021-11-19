@@ -7,7 +7,8 @@ from InPainting import inpaint
 from Denoising import denoise
 from histogramEqulization import equalize_histogram
 from adaptiveHistogramEqualization import CLAHE
-
+from SuperRez import superRez
+from Download import getImageLink
 
 def main():
     st.set_page_config(layout="wide")
@@ -20,6 +21,7 @@ def main():
     denoisingPage = "Image Denoising"
     histogramEqPage = "Histogram Equalization"
     adapHistogramEqPage = "Adaptive Histogram Equalization"
+    superRezPage = "Super Resolution"
     comparisonPage = "Compare with original image"
 
     appMode = st.sidebar.selectbox(
@@ -31,6 +33,7 @@ def main():
              denoisingPage,
              histogramEqPage,
              adapHistogramEqPage,
+             superRezPage,
              comparisonPage
              ])
 
@@ -79,6 +82,8 @@ def main():
 
       current.header("Result Image")
       current.image(st.session_state["current"], use_column_width = True)
+      if st.button("Generate Download Link") :
+      	st.markdown(getImageLink.getImageLink(st.session_state["current"]), unsafe_allow_html=True)
 
     if appMode == histogramEqPage:
         result = equalize_histogram.equalize_histogram(st.session_state["current"])
@@ -86,7 +91,21 @@ def main():
 
     if appMode == adapHistogramEqPage:
         result = CLAHE.CLAHE(st.session_state["current"])
-
+    
+    if appMode == superRezPage:
+    	status = st.radio("Select Scaking factor: ", ('2x', '3x', '4x'))
+    	temp = superRez.superRez(st.session_state["current"], 2)
+    	if status == '3x':
+    		temp = superRez.superRez(st.session_state["current"], 3)
+    	elif status == '4x':
+    		temp = superRez.superRez(st.session_state["current"], 4)
+    	else:
+    		temp = superRez.superRez(st.session_state["current"], 2)
+    	if temp.size < 20000000:
+    		result = temp
+    	else:
+    		st.warning("Image size will become too big")
+    
     #display the result
     if result is not None:
         previous, current = st.columns(2)
@@ -99,8 +118,6 @@ def main():
 
         if st.button("Save Changes"):
             st.session_state["current"] = result
-
-
 
 if __name__ == '__main__':
     main()
