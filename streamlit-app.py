@@ -20,7 +20,7 @@ def main():
     inpaintingPage = "Image Inpainting"
     denoisingPage = "Image Denoising"
     histogramEqPage = "Histogram Equalization"
-    adapHistogramEqPage = "Adaptive Histogram Equalization"
+    adapHistogramEqPage = " Constrast Limited Adaptive Histogram Equalization"
     superRezPage = "Super Resolution"
     comparisonPage = "Compare with original image"
 
@@ -94,7 +94,7 @@ def main():
         result = CLAHE.CLAHE(st.session_state["current"])
     
     if appMode == superRezPage:
-    	status = st.radio("Select Scaking factor: ", ('2x', '3x', '4x'))
+    	status = st.radio("Select Scaling factor: ", ('2x', '3x', '4x'))
     	temp = superRez.superRez(st.session_state["current"], 2)
     	if status == '3x':
     		temp = superRez.superRez(st.session_state["current"], 3)
