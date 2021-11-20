@@ -51,6 +51,9 @@ Use pip to install the dependencies:
 pip install -r requirements.txt
 ```
 
+#### You can also use the hosted version
+https://share.streamlit.io/hello-fri-end/breathe-life-into-your-old-pictures/streamlit-app.py
+
 
 <!-- USAGE EXAMPLES -->
 ## Usage
