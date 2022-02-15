@@ -13,6 +13,9 @@
       <a href="#about-the-project">About The Project</a>
     </li>
     <li>
+      <a href="#project-structure">Project Structure</a>
+    </li>
+    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
@@ -36,7 +39,37 @@ This is a tool to enhance your old/damaged pictures built using python & opencv.
 * Image Super-Resolution: Want to be able to display your images on a large screen? We've got you covered !  
 
 
-
+## Project Structure
+```
+.
+├── adaptiveHistogramEqualization
+│   ├── CLAHE.py
+├── Colorization
+│   ├── colorize.py
+│   ├── greyscaleImage.png
+│   ├── output.png
+├── Denoising
+│   ├── denoise.py
+├── Dockerfile
+├── Download
+│   ├── getImageLink.py
+├── histogramEqulization
+│   ├── equalize_histogram.py
+├── InPainting
+│   ├── inpaint.py
+├── models
+│   ├── colorization_deploy_v2.prototxt
+│   ├── colorization_release_v2.caffemodel
+│   ├── ESPCN_x2.pb
+│   ├── ESPCN_x3.pb
+│   ├── ESPCN_x4.pb
+│   └── pts_in_hull.npy
+├── README.md
+├── requirements.txt
+├── streamlit-app.py
+└── SuperRez
+    └── superRez.py
+```
 
 <!-- GETTING STARTED -->
 ## Getting Started
